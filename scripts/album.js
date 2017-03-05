@@ -29,6 +29,22 @@
          { title: 'Wrong phone number', duration: '2:15'}
      ]
  };
+
+ // A third Example Album
+ var albumPetShopBoys = {
+     title: 'Discopgraphy: The Complete Singles Collection',
+     artist: 'Pet Shop Boys',
+     label: 'Parlophone',
+     year: '1991',
+     albumArtUrl: 'assets/images/album_covers/PetShopBoysDiscography.jpg',
+     songs: [
+         { title: 'West End Girls', duration: '3:59' },
+         { title: 'Love Comes Quickly', duration: '4:17' },
+         { title: 'Opportunities', duration: '3:36'},
+         { title: 'Suburbia', duration: '4:03' },
+         { title: 'It\'s a sin', duration: '4:59'}
+     ]
+ };
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -65,5 +81,16 @@ var setCurrentAlbum = function(album) {
  };
  
  window.onload = function() {
-     setCurrentAlbum(albumPicasso);
+     var albums = [albumPicasso, albumMarconi, albumPetShopBoys];
+     var img = document.getElementsByClassName('album-cover-art')[0];
+     var index = 1;
+     setCurrentAlbum(albums[0]);
+     
+     img.addEventListener("click", function() {
+         setCurrentAlbum(albums[index]);
+         index++;
+         if (index == albums.length) {
+             index = 0;
+         }
+     });
  };
