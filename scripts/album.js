@@ -66,12 +66,12 @@ var setCurrentAlbum = function(album) {
      var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
  
      // #2
-     albumTitle.firstChild.nodeValue = album.title;
+     albumTitle.innerText = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
      albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
      albumImage.setAttribute('src', album.albumArtUrl);
  
-     // #3
+     // #3 The table
      albumSongList.innerHTML = '';
  
      // #4
@@ -136,8 +136,6 @@ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause">
  // Store state of playing songs
 var currentlyPlayingSong = null;
 
- // Store state of playing songs
- var currentlyPlayingSong = null;
  
  window.onload = function() {
      var albums = [albumPicasso, albumMarconi, albumPetShopBoys];
