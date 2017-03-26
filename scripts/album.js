@@ -41,7 +41,7 @@ var createSongRow = function(songNumber, songName, songLength) {
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
  
@@ -141,7 +141,7 @@ var updateSeekBarWhileSongPlays = function() {
              // #11
              var seekBarFillRatio = this.getTime() / this.getDuration();
              var $seekBar = $('.seek-control .seek-bar');
- 
+             setCurrentTimeInPlayerBar(this.getTime());
              updateSeekPercentage($seekBar, seekBarFillRatio);
          });
      }
@@ -303,12 +303,31 @@ var previousSong = function() {
 };
 
 var updatePlayerBarSong = function() {
+    setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
     $('.currently-playing .song-name').text(currentSongFromAlbum.title);
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artilst);
     $('.main-controls .play-pause').html(playerBarPauseButton);
 };
 
+var setCurrentTimeInPlayerBar = function(currentTime) {
+    var formattedTime = filterTimeCode(currentTime);
+    $('.current-time').html(formattedTime);
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+    var formattedTime = filterTimeCode(totalTime);
+     $('.total-time').html(formattedTime); 
+};
+
+var filterTimeCode = function(timeInSeconds) {
+    var secondsInNumber = parseFloat(timeInSeconds);
+    var wholeSeconds = Math.floor(secondsInNumber);
+    var minutes = Math.floor(wholeSeconds/60);
+    var seconds = wholeSeconds % 60;
+    var result = minutes + ":" + seconds;
+    return result;
+};
 
  // Album button templates
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
